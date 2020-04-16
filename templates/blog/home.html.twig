@@ -1,0 +1,51 @@
+ {% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <!-- Page Header -->
+
+    <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/about-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>SymBlog</h1>
+            <span class="subheading">Un Blog créé par <strong>Pascal Fromentin<strong></span>
+            <span class="subheading">avec Symfony 5 et Bootstrap 4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+   <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <h1>Nos derniers articles...</h1>
+        {% for data in articles %}
+        <div class="post-preview">
+          <a href="{{ path('blog_show', {'id': data.article.id}) }}">
+            <h2 class="post-title">
+              {{ data.article.title }} n°{{ data.article.id }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{ data.article.title }}
+            </h3>
+          </a>
+          <p class="post-meta">Posté par
+            <a href="#">Pascal</a>
+            le {{ data.date | date('d/m/Y') }}</p>
+        </div>
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="{{ path('blog_show', {'id': data.article.id}) }}" >Lire l'article &rarr;</a>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>`
+    </div>
+  </div>
+
+{% endblock %}

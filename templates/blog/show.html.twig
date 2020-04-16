@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ article.image }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Man must explore, and this is exploration at its greatest</h1>
+            <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+            <span class="meta">Posted by
+              <a href="#">Start Bootstrap</a>
+              on August 24, 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    <!-- Post Content -->
+    <div class="container center">
+      <article>
+        <h1>{{ article.title }} n°{{ article.id }}</h1>
+        <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la catégorie {{ article.category.title }}</div>
+        <div class="content">
+          <img src="{{ article.image }}" alt=""><br>
+          {{ article.content | raw }}
+        </div>
+      </article>
+
+      <section id="commentaires">
+        <h2>{{ article.comments | length }} Commentaires</h2>
+        {% for comment in article.comments %}
+          <div class="comment">
+            <div class="row">
+              <div class="col-3">
+                {{ comment.author }} <br>(<small> Le {{ comment.createdAt | date('d/m/Y') }} à {{ comment.createdAt | date('H:i') }}</small>)
+              </div>
+              <div class="col-9">
+                {{ comment.content | raw }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        {% if app.user %}
+          {{ form_start(commentForm) }}
+
+          {{ form_widget(commentForm) }}
+
+          <button type="submit" class="btn btn-primary">Enregistrer mon commentaire</button>
+
+          {{ form_end(commentForm) }}
+        {% else %}
+          <h3>Vous devez être connecté(e) si vous voulez laisser un commentaire...</h3>
+          <a href="{{ path('security_login') }}" class="btn btn-primary">Se connecter</a>
+        {% endif %}
+      </section>
+    </div>
+{% endblock %}
