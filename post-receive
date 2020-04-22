@@ -1,0 +1,37 @@
+#!/bin/bash
+# Hook post-receive
+
+# Force source bash profile to update PATH
+source ~/.bash_profile
+source ~/.bashrc
+
+
+GIT_REPO=$HOME/depot_git
+DEPLOY_DIR=$HOME/symblog
+
+# Go to deploy directory to load ovhconfig
+cd $DEPLOY_DIR
+ovhConfig
+cd -
+
+while read prevsha1 newsha1 ref
+do
+    if [[ $ref =~ .*/master$ ]];
+    then
+        echo "Deploying master branch to production..."
+        git --work-tree=$DEPLOY_DIR --git-dir=$GIT_REPO checkout -f
+        cd $DEPLOY_DIR
+
+        #Exemple for laravel
+        if [[ -f composer.lock ]]
+        then
+            composer update --no-dev --no-interaction
+        else
+            composer install --no-dev --no-interaction
+        fi
+        php artisant key:generate
+        php artisan migrate
+    else
+        echo "Ref: $ref isn't master. Nothing to do on production"
+    fi
+done
