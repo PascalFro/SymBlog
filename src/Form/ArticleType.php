@@ -25,6 +25,7 @@ class ArticleType extends AbstractType
             ->add(
                 'category',
                 EntityType::Class, [
+                    'label' => "Catégorie",
                     'class' => Category::Class,
                     'choice_label' => 'title'
                 ])

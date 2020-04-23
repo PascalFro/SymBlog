@@ -2,22 +2,39 @@
 
 {% block body %}
 
-  <h1>Création d'un article</h1>
+      <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/img/about-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>SymBlog</h1>
+            <span class="subheading">Laisssez parler votre imagination...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  {{ form_start(form) }}
+   <!-- Main Content -->
+  <div class="container">
+    <h1>Création d'un article</h1>
 
-  {{ form_widget(form) }}
+    {{ form_start(form) }}
 
-  <button type="submit" class="btn btn-success">
-    {% if editMode %}
-      Enregistrer les modifications
-    {% else %}
-      Ajouter l'article
-    {% endif %}
-  </button>
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-success">
+      {% if editMode %}
+        Enregistrer les modifications
+      {% else %}
+        Ajouter l'article
+      {% endif %}
+    </button>
 
 
 
-  {{ form_end(form) }}
-
+    {{ form_end(form) }}
+  </div>
 {% endblock %}
